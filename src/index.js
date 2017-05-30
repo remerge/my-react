@@ -9,4 +9,4 @@ export function main() {
   registerServiceWorker();
 }
 
-export default main;
+main();
