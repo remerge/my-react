@@ -9,16 +9,13 @@ Goals:
 - things `ember-cli` does for us now:
   - Builds project -> webpack
   - Deploys -> need custom solution
-  - Dev server -> ?
+  - Dev server -> webpack watch + ember
   - Runs tests -> Jest
 
 ## Production build
 
 - Include `my-react` as an NPM dependency
 - Import the JS and CSS via `ember-cli-node-assets`
-
-- TODO: figure out how to export a module as output
-
 
 ## Dev server
 
@@ -33,13 +30,16 @@ in a running browser.
 
 Two possible approaches:
 
-1. Make the `webpack-dev-server` write to disk
+1. Use webpack in watch mode instead of `webpack-dev-server`; optionally run both in parallel
 2. Work in something like `react-storybook` where we can control the environment
+  - `react-storybook` is not compatible with `create-react-app` and in general seems like too far off our desired
+    direction with webpack
 
 ## Prototype
 
 Plan:
 
+  - Set up build system for local development and production
   - Replace campaign/new:
     - Dependencies:
       - Material components
