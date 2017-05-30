@@ -1,8 +1,12 @@
+import React from 'react';
+import './index.css';
 import App from './App';
+import ReactDOM from 'react-dom';
+import registerServiceWorker from './registerServiceWorker';
 
-if (!window.Ember) {
-  import('./standaloneEntryPoint')
-    .then(({ main }) => main());
+export function main() {
+  ReactDOM.render(<App />, document.getElementById('root'));
+  registerServiceWorker();
 }
 
-export { App };
+export default main;

@@ -38,11 +38,6 @@ const commonConfig = {
     path: paths.appBuild,
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
-    // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].chunk.js',
-    // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath,
-    // Point sourcemap entries to original disk location
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath),
   },
@@ -238,7 +233,12 @@ const libraryConfig = Object.assign({}, commonConfig, {
     paths.libraryEntryJs,
   ],
 });
-libraryConfig.output.filename = paths.libraryOutputJs;
+
+
+libraryConfig.output = Object.assign({}, libraryConfig.output, {
+  filename: 'static/js/library.js',
+  libraryTarget: 'umd',
+});
 
 const standaloneAppConfig = Object.assign({}, commonConfig);
 standaloneAppConfig.entry = [
@@ -266,8 +266,15 @@ standaloneAppConfig.entry = [
 // This does not produce a real file. It's just the virtual path that is
 // served by WebpackDevServer in development. This is the JS bundle
 // containing code from all our entry points, and the Webpack runtime.
-standaloneAppConfig.output.filename = 'static/js/bundle.js';
 
+standaloneAppConfig.output = Object.assign({}, standaloneAppConfig.output, {
+  filename: 'static/js/bundle.js',
+  // There are also additional JS chunk files if you use code splitting.
+  chunkFilename: 'static/js/[name].chunk.js',
+  // This is the URL that app is served from. We use "/" in development.
+  publicPath: publicPath,
+  // Point sourcemap entries to original disk location
+})
 
 module.exports = {
   commonConfig,
